@@ -2828,14 +2828,12 @@ Components.Tab =
             Type = "Tab"
         }
 
-        if not fischbypass then
-            if Library:GetIcon(Icon) then
-                Icon = Library:GetIcon(Icon)
-            end
+        if Library:GetIcon(Icon) then
+            Icon = Library:GetIcon(Icon)
+        end
 
-            if Icon == "" or nil then
-                Icon = nil
-            end
+        if Icon == "" or nil then
+            Icon = nil
         end
 
         Tab.Frame =
