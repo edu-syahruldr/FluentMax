@@ -10,6 +10,7 @@ local httpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
+print("Library Loaded V1")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -7342,11 +7343,20 @@ ElementsTable.Paragraph = (function()
         ParagraphElement.Border.Transparency = 0.6
 
         local ParagraphObject = {
-            SetTitle = ParagraphElement.SetTitle,
-            SetDesc = ParagraphElement.SetDesc,
-            Visible = ParagraphElement.Visible,
             Elements = ParagraphElement
         }
+
+        function ParagraphObject:SetTitle(newTitle)
+            ParagraphElement:SetTitle(newTitle)
+        end
+
+        function ParagraphObject:SetDesc(newDesc)
+            ParagraphElement:SetDesc(newDesc)
+        end
+
+        function ParagraphObject:Visible(visible)
+            ParagraphElement:Visible(visible)
+        end
 
         return ParagraphObject
     end
