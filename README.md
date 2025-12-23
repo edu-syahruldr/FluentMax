@@ -273,5 +273,5 @@ This project is for educational purposes. Credit to the original Fluent library 
 
 ## Links
 
-- Documentation: [https://docs.fluent-pl.us/](https://docs.fluent-pl.us/)
+- Fluent Plus: [https://docs.fluent-pl.us/](https://docs.fluent-pl.us/)
 - Icon Packs: [https://github.com/Footagesus/Icons](https://github.com/Footagesus/Icons)
