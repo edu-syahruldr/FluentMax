@@ -10,7 +10,7 @@ local httpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
-print("Library Loaded V1")
+print("Library Loaded V1.1")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
