@@ -15,6 +15,12 @@ local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
 
+local fischbypass
+
+if game.GameId == 5750914919 then
+    fischbypass = true
+end
+
 local RenderStepped = RunService.RenderStepped
 
 local ProtectGui = protectgui or (syn and syn.protect_gui) or function()
@@ -2829,12 +2835,14 @@ Components.Tab =
             Type = "Tab"
         }
 
-        if Library:GetIcon(Icon) then
-            Icon = Library:GetIcon(Icon)
-        end
+        if not fischbypass then
+            if Library:GetIcon(Icon) then
+                Icon = Library:GetIcon(Icon)
+            end
 
-        if Icon == "" or nil then
-            Icon = nil
+            if Icon == "" or nil then
+                Icon = nil
+            end
         end
 
         Tab.Frame =
