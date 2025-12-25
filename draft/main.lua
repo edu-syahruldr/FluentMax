@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3")
+print("Library Loaded V1.3A")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -9168,7 +9168,7 @@ ElementsTable.Divider = (function()
             {
                 Size = UDim2.new(1, 0, 0, Height + (Padding * 2)),
                 BackgroundTransparency = 1,
-                Parent = self.Container,
+                Parent = Divider.Container,
                 LayoutOrder = 7
             },
             {
