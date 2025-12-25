@@ -4306,7 +4306,7 @@ Components.Dialog =
             NewDialog.TintFrame:Destroy()
         end
 
-        function NewDialog:Button(Title, Callback)
+        function NewDialog:Button(Title, Callback, Destructive)
             NewDialog.Buttons = NewDialog.Buttons + 1
             Title = Title or "Button"
             Callback = Callback or function()
@@ -4314,6 +4314,15 @@ Components.Dialog =
 
             local Button = Components.Button("", NewDialog.ButtonHolder, true)
             Button.Title.Text = Title
+
+            -- Apply destructive (red) styling if specified
+            if Destructive then
+                Button.Frame.BackgroundColor3 = Color3.fromRGB(180, 50, 50)
+                -- Remove theme tag for background to keep red color
+                if Button.Frame:FindFirstChild("ThemeTag") then
+                    Button.Frame.ThemeTag = nil
+                end
+            end
 
             for _, Btn in next, NewDialog.ButtonHolder:GetChildren() do
                 if Btn:IsA("TextButton") then
@@ -4826,11 +4835,13 @@ Components.TitleBar =
     return function(Config)
         local TitleBar = {}
 
-        local function BarButton(Icon, Pos, Parent, Callback)
+        local function BarButton(Icon, Pos, Parent, Callback, HoverColor)
             local Button = {
                 Callback = Callback or function()
                     end
             }
+
+            local isDestructive = HoverColor ~= nil
 
             Button.Frame =
                 New(
@@ -4842,9 +4853,10 @@ Components.TitleBar =
                     Parent = Parent,
                     Position = Pos,
                     Text = "",
-                    ThemeTag = {
+                    BackgroundColor3 = isDestructive and HoverColor or nil,
+                    ThemeTag = not isDestructive and {
                         BackgroundColor3 = "Text"
-                    }
+                    } or nil
                 },
                 {
                     New(
@@ -4875,7 +4887,7 @@ Components.TitleBar =
             AddSignal(
                 Button.Frame.MouseEnter,
                 function()
-                    SetTransparency(0.94)
+                    SetTransparency(isDestructive and 0.3 or 0.94)
                 end
             )
             AddSignal(
@@ -4887,13 +4899,13 @@ Components.TitleBar =
             AddSignal(
                 Button.Frame.MouseButton1Down,
                 function()
-                    SetTransparency(0.96)
+                    SetTransparency(isDestructive and 0.2 or 0.96)
                 end
             )
             AddSignal(
                 Button.Frame.MouseButton1Up,
                 function()
-                    SetTransparency(0.94)
+                    SetTransparency(isDestructive and 0.3 or 0.94)
                 end
             )
             AddSignal(Button.Frame.MouseButton1Click, Button.Callback)
@@ -5024,6 +5036,7 @@ Components.TitleBar =
                         Buttons = {
                             {
                                 Title = "Yes",
+                                Destructive = true,
                                 Callback = function()
                                     Library:Destroy()
                                 end
@@ -5034,7 +5047,8 @@ Components.TitleBar =
                         }
                     }
                 )
-            end
+            end,
+            Color3.fromRGB(200, 50, 50)
         )
         TitleBar.MaxButton =
             BarButton(
@@ -6523,7 +6537,7 @@ Components.Window =
             )
 
             for _, Button in next, Config.Buttons do
-                Dialog:Button(Button.Title, Button.Callback)
+                Dialog:Button(Button.Title, Button.Callback, Button.Destructive)
             end
 
             Dialog:Open()
