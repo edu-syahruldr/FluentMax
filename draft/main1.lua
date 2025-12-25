@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3KA")
+print("Library Loaded V1.3")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -5774,8 +5774,12 @@ Components.Window =
         )
 
         -- Bouncy open animation
-        local targetPos = Window.Position
+        -- Calculate center position
         local vp = Camera.ViewportSize
+        local centerX = math.floor((vp.X - Window.Size.X.Offset) / 2)
+        local centerY = math.floor((vp.Y - Window.Size.Y.Offset) / 2)
+        local targetPos = UDim2.fromOffset(centerX, centerY)
+        Window.Position = targetPos
         
         -- Create UIScale for bouncy effect
         local openScale = Instance.new("UIScale")
@@ -5784,7 +5788,7 @@ Components.Window =
         openScale.Parent = Window.Root
         
         -- Start position below screen
-        Window.Root.Position = UDim2.new(0, targetPos.X.Offset, 0, vp.Y + 100)
+        Window.Root.Position = UDim2.new(0, centerX, 0, vp.Y + 100)
         
         -- Phase 1: Rise up + shrink (0.25s)
         task.defer(function()
@@ -6248,13 +6252,19 @@ Components.Window =
                                     end
                                     avgVel = avgVel / #VelocitySamples
                                     
-                                    -- Only apply momentum if velocity is significant
+                                    -- Only apply momentum if velocity is significant but not too fast
                                     local velMagnitude = avgVel.Magnitude
-                                    if velMagnitude > 50 then
+                                    if velMagnitude > 100 and velMagnitude < 2000 then
+                                        -- Cap velocity to prevent flying to corners
+                                        local cappedVel = avgVel
+                                        if velMagnitude > 500 then
+                                            cappedVel = avgVel.Unit * 500
+                                        end
+                                        
                                         -- Apply momentum with Spring for smooth deceleration
-                                        local momentumMultiplier = 3
-                                        local targetX = Window.Position.X.Offset + (avgVel.X * momentumMultiplier)
-                                        local targetY = Window.Position.Y.Offset + (avgVel.Y * momentumMultiplier)
+                                        local momentumMultiplier = 1.5
+                                        local targetX = Window.Position.X.Offset + (cappedVel.X * momentumMultiplier)
+                                        local targetY = Window.Position.Y.Offset + (cappedVel.Y * momentumMultiplier)
                                         
                                         -- Clamp to screen bounds
                                         local vp = Camera.ViewportSize
@@ -6264,8 +6274,8 @@ Components.Window =
                                         
                                         Window.Position = UDim2.fromOffset(targetX, targetY)
                                         PosMotor:setGoal({
-                                            X = Spring(targetX, {frequency = 5, dampingRatio = 0.9}),
-                                            Y = Spring(targetY, {frequency = 5, dampingRatio = 0.9})
+                                            X = Spring(targetX, {frequency = 6, dampingRatio = 1}),
+                                            Y = Spring(targetY, {frequency = 6, dampingRatio = 1})
                                         })
                                     end
                                 end
