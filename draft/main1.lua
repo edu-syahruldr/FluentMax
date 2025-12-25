@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3")
+print("Library Loaded V1.3.5")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -5804,9 +5804,9 @@ Components.Window =
             Window.UserInfoHeight = userInfoHeight
             Window.UserInfoTop = Config.UserInfoTop
             local userInfoCornerRadius = Config.UserInfoCornerRadius or 8
-            local userInfoTopPadding = 8 -- padding from top edge when top=true
-            local userInfoBottomPadding = 6 -- padding from bottom edge when bottom
-            local separatorPadding = 8 -- padding between UserInfo and separator
+            local userInfoPadding = 8 -- padding from edge (top when top=true, bottom when top=false)
+            local userInfoBottomPadding = 6
+            local separatorPadding = 8 -- same as userInfoPadding for top=true case
 
             local UserInfoSection =
                 New(
@@ -5815,7 +5815,7 @@ Components.Window =
                     Name = "UserInfoSection",
                     BackgroundTransparency = 0.92,
                     Size = UDim2.new(1, -4, 0, userInfoHeight),
-                    Position = Config.UserInfoTop and UDim2.fromOffset(2, userInfoTopPadding) or
+                    Position = Config.UserInfoTop and UDim2.fromOffset(2, userInfoPadding) or
                         UDim2.new(0, 2, 1, -(userInfoHeight + userInfoBottomPadding)),
                     ZIndex = 15,
                     Parent = TabFrame,
@@ -5845,11 +5845,11 @@ Components.Window =
             )
 
             -- Separator line: below UserInfo when top=true, above when top=false
-            -- Use same padding as UserInfo edge spacing for consistency
             local separatorYPos
             if Config.UserInfoTop then
                 -- When top: separator is BELOW the UserInfo
-                separatorYPos = userInfoTopPadding + userInfoHeight + separatorPadding
+                -- userInfoPadding (8) + userInfoHeight (56) + separatorPadding (8) = 72
+                separatorYPos = userInfoPadding + userInfoHeight + separatorPadding
             else
                 -- When bottom: separator is ABOVE the UserInfo
                 separatorYPos = -(userInfoHeight + userInfoBottomPadding + separatorPadding)
