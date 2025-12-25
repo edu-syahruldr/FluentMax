@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3G")
+print("Library Loaded V1.3G1")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -5909,8 +5909,7 @@ Components.Window =
                 TabFrame.Position = UDim2.new(0, 12, 0, 39)
                 TabFrame.Size = UDim2.new(0, Window.TabWidth, 1, -(31 + imageOffset + userInfoHeight))
                 local searchOffset = hasImage and (imageSize + 10 + topOffset) or topOffset
-                -- Add separatorPadding to ensure search bar is below the separator line
-                local userInfoTotalOffset = userInfoPadding + userInfoHeight + separatorPadding + 6
+                local userInfoTotalOffset = userInfoPadding + userInfoHeight + separatorPadding + 3
                 SearchFrame.Position = UDim2.new(0, 0, 0, userInfoTotalOffset + searchOffset)
                 if ImageFrame then
                     ImageFrame.Position = UDim2.new(0.5, 0, 0, userInfoTotalOffset + topOffset)
