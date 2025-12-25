@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3G1")
+print("Library Loaded V1.3F")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -5757,7 +5757,7 @@ Components.Window =
             local userInfoCornerRadius = Config.UserInfoCornerRadius or 8
             local userInfoPadding = 8
             local userInfoBottomPadding = 6 -- 2px less than top padding
-            local separatorPadding = 10 -- padding between UserInfo and separator
+            local separatorPadding = userInfoPadding -- same padding as UserInfo to edge
 
             local UserInfoSection =
                 New(
@@ -5796,12 +5796,13 @@ Components.Window =
             )
 
             -- Separator line: below UserInfo when top=true, above when top=false
+            -- Use same padding as UserInfo edge spacing for consistency
             local separatorYPos
             if Config.UserInfoTop then
-                -- When top: separator is BELOW the UserInfo
+                -- When top: separator is BELOW the UserInfo (same spacing as top edge)
                 separatorYPos = userInfoPadding + userInfoHeight + separatorPadding
             else
-                -- When bottom: separator is ABOVE the UserInfo
+                -- When bottom: separator is ABOVE the UserInfo (same spacing as bottom edge)
                 separatorYPos = -(userInfoHeight + userInfoBottomPadding + separatorPadding)
             end
 
@@ -5909,7 +5910,7 @@ Components.Window =
                 TabFrame.Position = UDim2.new(0, 12, 0, 39)
                 TabFrame.Size = UDim2.new(0, Window.TabWidth, 1, -(31 + imageOffset + userInfoHeight))
                 local searchOffset = hasImage and (imageSize + 10 + topOffset) or topOffset
-                local userInfoTotalOffset = userInfoPadding + userInfoHeight + separatorPadding + 3
+                local userInfoTotalOffset = userInfoPadding + userInfoHeight + separatorPadding + 6
                 SearchFrame.Position = UDim2.new(0, 0, 0, userInfoTotalOffset + searchOffset)
                 if ImageFrame then
                     ImageFrame.Position = UDim2.new(0.5, 0, 0, userInfoTotalOffset + topOffset)
