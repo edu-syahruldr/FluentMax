@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3J")
+print("Library Loaded V1.3")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -5861,7 +5861,7 @@ Components.Window =
                 {
                     Name = "UserInfoSeparator",
                     BackgroundTransparency = 0.5,
-                    Size = UDim2.new(0, Window.TabWidth + 6, 0, 1),
+                    Size = UDim2.new(0, Window.TabWidth + 18, 0, 1),
                     Position = Config.UserInfoTop and UDim2.fromOffset(-12, separatorYPos) or
                         UDim2.new(0, -12, 1, separatorYPos),
                     ZIndex = 15,
