@@ -5804,9 +5804,9 @@ Components.Window =
             Window.UserInfoHeight = userInfoHeight
             Window.UserInfoTop = Config.UserInfoTop
             local userInfoCornerRadius = Config.UserInfoCornerRadius or 8
-            local userInfoPadding = 6 -- same as bottom padding for consistency
-            local userInfoBottomPadding = 6
-            local separatorPadding = userInfoPadding
+            local userInfoTopPadding = 8 -- padding from top edge when top=true
+            local userInfoBottomPadding = 6 -- padding from bottom edge when bottom
+            local separatorPadding = 8 -- padding between UserInfo and separator
 
             local UserInfoSection =
                 New(
@@ -5815,7 +5815,7 @@ Components.Window =
                     Name = "UserInfoSection",
                     BackgroundTransparency = 0.92,
                     Size = UDim2.new(1, -4, 0, userInfoHeight),
-                    Position = Config.UserInfoTop and UDim2.fromOffset(2, userInfoPadding) or
+                    Position = Config.UserInfoTop and UDim2.fromOffset(2, userInfoTopPadding) or
                         UDim2.new(0, 2, 1, -(userInfoHeight + userInfoBottomPadding)),
                     ZIndex = 15,
                     Parent = TabFrame,
@@ -5848,10 +5848,10 @@ Components.Window =
             -- Use same padding as UserInfo edge spacing for consistency
             local separatorYPos
             if Config.UserInfoTop then
-                -- When top: separator is BELOW the UserInfo (same spacing as top edge)
-                separatorYPos = userInfoPadding + userInfoHeight + separatorPadding
+                -- When top: separator is BELOW the UserInfo
+                separatorYPos = userInfoTopPadding + userInfoHeight + separatorPadding
             else
-                -- When bottom: separator is ABOVE the UserInfo (same spacing as bottom edge)
+                -- When bottom: separator is ABOVE the UserInfo
                 separatorYPos = -(userInfoHeight + userInfoBottomPadding + separatorPadding)
             end
 
