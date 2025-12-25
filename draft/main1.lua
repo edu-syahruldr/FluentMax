@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3H")
+print("Library Loaded V1.3")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -5765,9 +5765,9 @@ Components.Window =
                 {
                     Name = "UserInfoSection",
                     BackgroundTransparency = 0.92,
-                    Size = UDim2.new(1, 0, 0, userInfoHeight),
-                    Position = Config.UserInfoTop and UDim2.fromOffset(0, userInfoPadding) or
-                        UDim2.new(0, 0, 1, -(userInfoHeight + userInfoBottomPadding)),
+                    Size = UDim2.new(1, -4, 0, userInfoHeight),
+                    Position = Config.UserInfoTop and UDim2.fromOffset(2, userInfoPadding) or
+                        UDim2.new(0, 2, 1, -(userInfoHeight + userInfoBottomPadding)),
                     ZIndex = 15,
                     Parent = TabFrame,
                     ThemeTag = {
