@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3")
+print("Library Loaded V1.3A")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -6244,41 +6244,14 @@ Components.Window =
                             if Input.UserInputState == Enum.UserInputState.End then
                                 Dragging = false
                                 
-                                -- Calculate average velocity from samples
-                                if #VelocitySamples > 0 then
-                                    local avgVel = Vector2.new(0, 0)
-                                    for _, sample in ipairs(VelocitySamples) do
-                                        avgVel = avgVel + sample
-                                    end
-                                    avgVel = avgVel / #VelocitySamples
-                                    
-                                    -- Only apply momentum if velocity is significant but not too fast
-                                    local velMagnitude = avgVel.Magnitude
-                                    if velMagnitude > 100 and velMagnitude < 2000 then
-                                        -- Cap velocity to prevent flying to corners
-                                        local cappedVel = avgVel
-                                        if velMagnitude > 500 then
-                                            cappedVel = avgVel.Unit * 500
-                                        end
-                                        
-                                        -- Apply momentum with Spring for smooth deceleration
-                                        local momentumMultiplier = 1.5
-                                        local targetX = Window.Position.X.Offset + (cappedVel.X * momentumMultiplier)
-                                        local targetY = Window.Position.Y.Offset + (cappedVel.Y * momentumMultiplier)
-                                        
-                                        -- Clamp to screen bounds
-                                        local vp = Camera.ViewportSize
-                                        local winSize = Window.Root.AbsoluteSize
-                                        targetX = math.clamp(targetX, 0, math.max(0, vp.X - winSize.X))
-                                        targetY = math.clamp(targetY, 0, math.max(0, vp.Y - winSize.Y))
-                                        
-                                        Window.Position = UDim2.fromOffset(targetX, targetY)
-                                        PosMotor:setGoal({
-                                            X = Spring(targetX, {frequency = 6, dampingRatio = 1}),
-                                            Y = Spring(targetY, {frequency = 6, dampingRatio = 1})
-                                        })
-                                    end
-                                end
+                                -- Sync PosMotor to current position (no momentum)
+                                local currentX = Window.Root.Position.X.Offset
+                                local currentY = Window.Root.Position.Y.Offset
+                                Window.Position = UDim2.fromOffset(currentX, currentY)
+                                PosMotor:setGoal({
+                                    X = Flipper.Instant.new(currentX),
+                                    Y = Flipper.Instant.new(currentY)
+                                })
                             end
                         end
                     )
