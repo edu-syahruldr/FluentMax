@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1.3a")
+print("Library Loaded V.SirenX")
 local Mobile =
     not RunService:IsStudio() and
     table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
@@ -5613,7 +5613,7 @@ Components.Window =
             "TextLabel",
             {
                 RichText = true,
-                Text = "Aroel",
+                Text = "SirenX",
                 TextTransparency = 0,
                 FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
                 TextSize = 28,
