@@ -8,7 +8,7 @@ local Camera = game:GetService("Workspace").CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 local httpService = game:GetService("HttpService")
 
-print("Library Loaded V1a")
+print("Library Loaded V1.3a")
 local Mobile = not RunService:IsStudio() and
                    table.find({Enum.Platform.IOS, Enum.Platform.Android},
                               UserInputService:GetPlatform()) ~= nil
@@ -2050,7 +2050,7 @@ Library.MiniMessageToRichText = MiniMessageToRichText
 
 local New = Creator.New
 
-local GUI = New("ScreenGui", {Parent = LocalPlayer:WaitForChild("PlayerGui"), DisplayOrder = 999999})
+local GUI = New("ScreenGui", {Parent = LocalPlayer:WaitForChild("PlayerGui"), DisplayOrder = 2147483649})
 Library.GUI = GUI
 ProtectGui(GUI)
 
