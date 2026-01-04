@@ -2050,7 +2050,7 @@ Library.MiniMessageToRichText = MiniMessageToRichText
 
 local New = Creator.New
 
-local GUI = New("ScreenGui", {Parent = LocalPlayer:WaitForChild("PlayerGui"), DisplayOrder = 2147483649})
+local GUI = New("ScreenGui", {Parent = LocalPlayer:WaitForChild("PlayerGui"), DisplayOrder = 2147483646})
 Library.GUI = GUI
 ProtectGui(GUI)
 
